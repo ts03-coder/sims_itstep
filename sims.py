@@ -76,7 +76,7 @@ class House:
             print(f"{human.name} заселився(-лась) у дім за адресою {self.adress}")
 
     def add_item(self, *args):
-        if item in args:
+        for item in args:
             self.items.append(item)
             print(f"У дім за адресою {self.adress} додано: {item.name}")
 
@@ -88,3 +88,25 @@ class House:
                 print(f"- {human.info()}")
         else:
             print(f"У домі {self.adress} поки ніхто не живе")
+
+house = House("вул. Пітонівська, 7")
+
+bed = Item("Ліжко", energy=50, mood=5)
+fridge = Item("Холодильник", energy=20, mood=10, price=15)
+tv = Item("Телевізор", energy=-5, mood=30)
+
+house.add_item(bed, fridge, tv)
+
+nick = Human("Nick")
+kate = Human("Kate", energy=40, mood=60, money=110)
+house.add_resident(nick, kate)
+
+house.print_resident()
+
+nick.work()
+nick.use(bed)
+
+kate.use(fridge)
+kate.use(tv)
+
+house.print_resident()
