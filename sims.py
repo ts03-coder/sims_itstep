@@ -52,3 +52,39 @@ class Item:
         if human.mood > 100:
             human.energy = 100
         print(f"{human.name} використав(-ла) {self.name}. Енергія: {human.energy}, настрій: {human.mood}")
+
+class House:
+    MAX_RESIDENT = 4 # Атрибут класу - спільний для всіх будинків
+
+    def __init__(self, adress):
+        self.adress = adress
+        self.resident = []
+        self.items = []
+
+    def add_resident(self, *args):
+        for human in args:
+            if len(self.resident) >= House.MAX_RESIDENT:
+                print(f"У домі {self.adress} немає місця для {human.name}")
+                return
+
+            if human in self.resident:
+                print(f"{human.name} вже живе у домі за адресою {self.adress}")
+                continue
+
+            self.resident.append(human)
+            human.home = self # Зворотній звязок
+            print(f"{human.name} заселився(-лась) у дім за адресою {self.adress}")
+
+    def add_item(self, *args):
+        if item in args:
+            self.items.append(item)
+            print(f"У дім за адресою {self.adress} додано: {item.name}")
+
+
+    def print_resident(self):
+        if self.resident != []:
+            print(f"Мешканці дому {self.adress}: ")
+            for human in self.resident:
+                print(f"- {human.info()}")
+        else:
+            print(f"У домі {self.adress} поки ніхто не живе")
